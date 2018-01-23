@@ -29,7 +29,7 @@ public class SessaoController {
 	@GetMapping("admin/sessao")
 	public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form){
 		form.setSalaId(salaId);
-		ModelAndView mav = new ModelAndView("sessoa/sessao");
+		ModelAndView mav = new ModelAndView("sessao/sessao");
 		mav.addObject("sala", salaDao.findOne(salaId));
 		mav.addObject("filmes", filmeDao.findAll());
 		return mav;
@@ -37,6 +37,7 @@ public class SessaoController {
 	
 	@PostMapping(value = "/admin/sessao")
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result){
+		System.out.println("********** " + form.getSalaId());
 		ModelAndView modelAndView = new ModelAndView("redirect:admin/sala/"+
 				form.getSalaId()+"/sessoes");
 		

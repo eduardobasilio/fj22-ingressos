@@ -2,6 +2,8 @@ package br.com.caelum.ingresso.model.form;
 
 import java.time.LocalTime;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +15,9 @@ import br.com.caelum.ingresso.model.Sala;
 import br.com.caelum.ingresso.model.Sessao;
 
 public class SessaoForm {
+	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	
 	@NotNull
