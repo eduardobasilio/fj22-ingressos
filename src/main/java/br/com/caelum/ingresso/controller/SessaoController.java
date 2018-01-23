@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,28 +19,30 @@ import br.com.caelum.ingresso.model.form.SessaoForm;
 
 @Controller
 public class SessaoController {
-	
+
 	@Autowired
 	private SalaDao salaDao;
 	@Autowired
 	private FilmeDao filmeDao;
 	@Autowired
 	private SessaoDao sessaoDao;
-	
+
 	@GetMapping("admin/sessao")
-	public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form){
+	public ModelAndView form(@RequestParam("salaId") Integer salaId, SessaoForm form) {
 		form.setSalaId(salaId);
 		ModelAndView mav = new ModelAndView("sessao/sessao");
 		mav.addObject("sala", salaDao.findOne(salaId));
 		mav.addObject("filmes", filmeDao.findAll());
+		mav.addObject("form", form);
 		return mav;
 	}
-	
+
 	@PostMapping(value = "/admin/sessao")
-	public ModelAndView salva(@Valid SessaoForm form, BindingResult result){
-		ModelAndView modelAndView = new ModelAndView("redirect:admin/sala/"+
-				form.getSalaId()+"/sessoes");
-		
+	@Transactional
+	public ModelAndView salva(@Valid SessaoForm form, BindingResult result) {
+		System.out.println("********** " + form.getSalaId());
+		ModelAndView modelAndView = new ModelAndView("redirect:/admin/sala/" + form.getSalaId() + "/sessoes");
+
 		Sessao sessao = form.toSessao(salaDao, filmeDao);
 		sessaoDao.save(sessao);
 		return modelAndView;
