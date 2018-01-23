@@ -37,7 +37,6 @@ public class SessaoController {
 	
 	@PostMapping(value = "/admin/sessao")
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result){
-		System.out.println("********** " + form.getSalaId());
 		ModelAndView modelAndView = new ModelAndView("redirect:admin/sala/"+
 				form.getSalaId()+"/sessoes");
 		
