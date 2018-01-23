@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.security.web.authentication.session.SessionAuthenticationException;
-
 import br.com.caelum.ingresso.model.Sessao;
 
 public class GerenciadorDeSessao {
@@ -28,7 +26,7 @@ public class GerenciadorDeSessao {
 					.plus(sessaoAtual.getFilme().getDuracao())
 					.isBefore(horarioSessao);
 		} else {
-			return horarioAtual
+			return horarioSessao
 					.plus(sessaoExistente.getFilme().getDuracao())
 					.isBefore(horarioAtual);
 		}
