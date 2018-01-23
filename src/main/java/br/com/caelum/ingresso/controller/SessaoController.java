@@ -40,7 +40,7 @@ public class SessaoController {
 	@PostMapping(value = "/admin/sessao")
 	@Transactional
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result) {
-		System.out.println("********** " + form.getSalaId());
+//		System.out.println("********** " + form.getSalaId());
 		ModelAndView modelAndView = new ModelAndView("redirect:/admin/sala/" + form.getSalaId() + "/sessoes");
 
 		Sessao sessao = form.toSessao(salaDao, filmeDao);
